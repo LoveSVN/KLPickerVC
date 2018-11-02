@@ -114,11 +114,11 @@
 
 
     WEAKSELF;
-    [[HUDHelper sharedInstance] syncLoading:@"" inView:self.view];
+//    [[HUDHelper sharedInstance] syncLoading:@"" inView:self.view];
     [self getProvincesAndCitiesSucess:^(NSArray *dataList) {
         NSLog(@"%@---",dataList);
 
-        [[HUDHelper sharedInstance] syncStopLoading];
+//        [[HUDHelper sharedInstance] syncStopLoading];
 
 
         [weakSelf showPickerWithWithComponent:2 numberOfRowsInComponent:^NSInteger(UIPickerView *pickerView,NSInteger componentIndex) {
@@ -137,8 +137,8 @@
             UILabel *lable = (UILabel *)reusingView;
             if (!lable) {
                 lable = [UILabel new];
-                lable.font = kAppPingFangSCMediumTextFont(18.0);
-                lable.textColor = colorWithStr(@"333333");
+//                lable.font = kAppPingFangSCMediumTextFont(18.0);
+//                lable.textColor = colorWithStr(@"333333");
                 lable.textAlignment = component?NSTextAlignmentLeft:NSTextAlignmentRight;
             }
 
@@ -183,7 +183,7 @@
     } failureBlock:^{
 
         NSLog(@"failure ==");
-        [[HUDHelper sharedInstance] syncStopLoadingMessage:@"请求失败"];
+//        [[HUDHelper sharedInstance] syncStopLoadingMessage:@"请求失败"];
 
     }];
 
@@ -193,13 +193,20 @@
 
 - (void)getProvincesAndCitiesSucess:(void(^)(NSArray *dataList))sucess failureBlock:(void(^)())failure{
 
+    areaModel *model = [areaModel new];
+    model.name = @"河南";
+    model.modelArray = @[@"信阳",@"南阳",@"洛阳",@"安阳",@"濮阳"].mutableCopy;
+    sucess(@[model]);
+    return ;
+
+
     //存版本
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
     NSString *filePath = [cachePath stringByAppendingPathComponent:@"versions.plist"];
     NSMutableDictionary *dict1 = [NSMutableDictionary dictionaryWithContentsOfFile:filePath];
     NSString *versions = [dict1 objectForKey:@"versions"];
     NSMutableArray *arryM = nil;
-    if ([versions isEqualToString:[GlobalVariables sharedInstance].appModel.region_versions]) {
+    if ([versions isEqualToString:@"2"]) {
         //获取Documents目录
         NSString *docPath2 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
         //还要指定存储文件的文件名称,仍然使用字符串拼接
@@ -208,118 +215,118 @@
 
         if (arryM && [arryM isKindOfClass:[NSMutableArray class]]) {
 
-            NSArray *tmpArry = [self setRegionList:arryM];
+//            NSArray *tmpArry = [self setRegionList:arryM];
             if (sucess) {
-                sucess(tmpArry);
+//                sucess(tmpArry);
             }
 
         }else {
             arryM = [[NSMutableArray alloc]init];
             WEAKSELF;
-            [self loadNetSucess:^(NSMutableArray *dataList) {
-
-                NSArray *list = [weakSelf setRegionList:arryM];
-                if (sucess) {
-                    sucess(list);
-                }
-
-
-            } FailureBlock:^(NSError *error) {
-
-                if (failure) {
-                    failure();
-                }
-            }];
+//            [self loadNetSucess:^(NSMutableArray *dataList) {
+//
+////                NSArray *list = [weakSelf setRegionList:arryM];
+//                if (sucess) {
+////                    sucess(list);
+//                }
+//
+//
+//            } FailureBlock:^(NSError *error) {
+//
+//                if (failure) {
+//                    failure();
+//                }
+//            }];
         }
 
     } else {
         arryM = [[NSMutableArray alloc]init];
         WEAKSELF;
-        [self loadNetSucess:^(NSMutableArray *dataList) {
-
-            NSArray *list = [weakSelf setRegionList:arryM];
-            if (sucess) {
-                sucess(list);
-            }
-        } FailureBlock:^(NSError *error) {
-            if (failure) {
-                failure();
-            }
-        }];
+//        [self loadNetSucess:^(NSMutableArray *dataList) {
+//
+////            NSArray *list = [weakSelf setRegionList:arryM];
+//            if (sucess) {
+//                sucess(list);
+//            }
+//        } FailureBlock:^(NSError *error) {
+//            if (failure) {
+//                failure();
+//            }
+//        }];
     }
 
 }
 
-- (NSArray *)setRegionList:(NSMutableArray *)allDataArray {
-
-    NSMutableArray *arryM = @[].mutableCopy;
-    for (NSDictionary *dict in allDataArray)
-    {
-        areaModel *model = [[areaModel alloc]init];
-
-        if ([[dict toString:@"region_level"] isEqualToString:@"2"])
-        {
-            // NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
-            model.id = [dict toString:@"id"];
-            model.pid= [dict toString:@"pid"];
-            model.name = [dict toString:@"name"];
-            model.region_level = [dict toString:@"region_level"];
-            model.modelArray = [[NSMutableArray alloc]init];
-            for (NSDictionary *dict1 in allDataArray)
-            {
-                if ([model.id isEqualToString:[dict1 toString:@"pid"]])
-                {
-                    [model.modelArray addObject:[dict1 toString:@"name"]];//存城市
-                }
-            }
-            [arryM addObject:model];
-        }
-    }
-
-    return arryM;
-}
+//- (NSArray *)setRegionList:(NSMutableArray *)allDataArray {
+//
+//    NSMutableArray *arryM = @[].mutableCopy;
+//    for (NSDictionary *dict in allDataArray)
+//    {
+//        areaModel *model = [[areaModel alloc]init];
+//
+//        if ([@"2" isEqualToString:@"2"])
+//        {
+//            // NSMutableDictionary *dictM = [NSMutableDictionary dictionary];
+//            model.id = [dict toString:@"id"];
+//            model.pid= [dict toString:@"pid"];
+//            model.name = [dict toString:@"name"];
+//            model.region_level = [dict toString:@"region_level"];
+//            model.modelArray = [[NSMutableArray alloc]init];
+//            for (NSDictionary *dict1 in allDataArray)
+//            {
+//                if ([model.id isEqualToString:[dict1 toString:@"pid"]])
+//                {
+//                    [model.modelArray addObject:[dict1 toString:@"name"]];//存城市
+//                }
+//            }
+//            [arryM addObject:model];
+//        }
+//    }
+//
+//    return arryM;
+//}
 
 //加载数据
-- (void)loadNetSucess:(void(^)(NSMutableArray *dataList))sucess FailureBlock:(void(^)(NSError *error))failureBlock
-{
-    NSMutableDictionary *parmDict = [NSMutableDictionary dictionary];
-    [parmDict setObject:@"user_center" forKey:@"ctl"];
-    [parmDict setObject:@"region_list" forKey:@"act"];
-    [[NetHttpsManager manager] POSTWithParameters:parmDict SuccessBlock:^(NSDictionary *responseJson)
-     {
-         if ([responseJson toInt:@"status"] == 1)
-         {
-             //存版本
-             NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
-             NSString *filePath = [cachePath stringByAppendingPathComponent:@"versions.plist"];
-             NSMutableDictionary *dict1 = [NSMutableDictionary dictionary];
-             [dict1 setObject:[responseJson toString:@"region_versions"] forKey:@"versions"];
-             [dict1 writeToFile:filePath atomically:YES];
-
-
-             NSArray *areaArray = [responseJson objectForKey:@"region_list"];
-             if (areaArray)
-             {
-                 if (areaArray.count > 0  && [areaArray isKindOfClass:[NSArray class]])
-                 {
-                     //获取Documents目录
-                     NSString *docPath2 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-                     //还要指定存储文件的文件名称,仍然使用字符串拼接
-                     NSString *filePath2 = [docPath2 stringByAppendingPathComponent:@"Province.plist"];
-                     NSLog(@"filePath2==%@",filePath2);
-                     [areaArray writeToFile:filePath2 atomically:YES];
-                     if (sucess) {
-                         sucess(areaArray);
-                     }
-                 }
-             }
-         }
-     } FailureBlock:^(NSError *error)
-     {
-         NSLog(@"error==%@",error);
-         failureBlock(error);
-     }];
-}
+//- (void)loadNetSucess:(void(^)(NSMutableArray *dataList))sucess FailureBlock:(void(^)(NSError *error))failureBlock
+//{
+//    NSMutableDictionary *parmDict = [NSMutableDictionary dictionary];
+//    [parmDict setObject:@"user_center" forKey:@"ctl"];
+//    [parmDict setObject:@"region_list" forKey:@"act"];
+//    [[NetHttpsManager manager] POSTWithParameters:parmDict SuccessBlock:^(NSDictionary *responseJson)
+//     {
+//         if ([responseJson toInt:@"status"] == 1)
+//         {
+//             //存版本
+//             NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
+//             NSString *filePath = [cachePath stringByAppendingPathComponent:@"versions.plist"];
+//             NSMutableDictionary *dict1 = [NSMutableDictionary dictionary];
+//             [dict1 setObject:[responseJson toString:@"region_versions"] forKey:@"versions"];
+//             [dict1 writeToFile:filePath atomically:YES];
+//
+//
+//             NSArray *areaArray = [responseJson objectForKey:@"region_list"];
+//             if (areaArray)
+//             {
+//                 if (areaArray.count > 0  && [areaArray isKindOfClass:[NSArray class]])
+//                 {
+//                     //获取Documents目录
+//                     NSString *docPath2 = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//                     //还要指定存储文件的文件名称,仍然使用字符串拼接
+//                     NSString *filePath2 = [docPath2 stringByAppendingPathComponent:@"Province.plist"];
+//                     NSLog(@"filePath2==%@",filePath2);
+//                     [areaArray writeToFile:filePath2 atomically:YES];
+//                     if (sucess) {
+//                         sucess(areaArray);
+//                     }
+//                 }
+//             }
+//         }
+//     } FailureBlock:^(NSError *error)
+//     {
+//         NSLog(@"error==%@",error);
+//         failureBlock(error);
+//     }];
+//}
 
 - (void)doTapChange:(UITapGestureRecognizer *)tapGestureRecognizer {
 
@@ -421,7 +428,7 @@ typedef enum : NSUInteger {
 
     UIButton *cancleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancleBtn setTitleColor:colorWithStr(@"FFA819") forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];//自己改
     cancleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [bar addSubview:cancleBtn];
     [cancleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -434,7 +441,7 @@ typedef enum : NSUInteger {
 
     UIButton *doBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [doBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [doBtn setTitleColor:colorWithStr(@"FFA819") forState:UIControlStateNormal];
+    [doBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal]; //自己改
     doBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [bar addSubview:doBtn];
     [doBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -446,7 +453,7 @@ typedef enum : NSUInteger {
     [doBtn addTarget:self action:@selector(doBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 
     UIView *lineView = [[UIView alloc] init];
-    lineView.backgroundColor = colorWithStr(@"D8D8D8");
+//    lineView.backgroundColor = colorWithStr(@"D8D8D8");
     [self addSubview:lineView];
     [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
 
