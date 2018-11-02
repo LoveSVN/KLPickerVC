@@ -13,6 +13,7 @@
 		A0C264E7218BFD6D00B3710B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0C264E6218BFD6D00B3710B /* Assets.xcassets */; };
 		A0C264EA218BFD6D00B3710B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0C264E8218BFD6D00B3710B /* LaunchScreen.storyboard */; };
 		A0C264ED218BFD6D00B3710B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C264EC218BFD6D00B3710B /* main.m */; };
+		A0C264F5218BFE5200B3710B /* KLPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C264F4218BFE5200B3710B /* KLPickerVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		A0C264E9218BFD6D00B3710B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0C264EB218BFD6D00B3710B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0C264EC218BFD6D00B3710B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A0C264F3218BFE5200B3710B /* KLPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KLPickerVC.h; path = ../../KLPickerVC.h; sourceTree = "<group>"; };
+		A0C264F4218BFE5200B3710B /* KLPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KLPickerVC.m; path = ../../KLPickerVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,8 @@
 		A0C264DC218BFD6B00B3710B /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				A0C264F3218BFE5200B3710B /* KLPickerVC.h */,
+				A0C264F4218BFE5200B3710B /* KLPickerVC.m */,
 				A0C264DD218BFD6B00B3710B /* AppDelegate.h */,
 				A0C264DE218BFD6B00B3710B /* AppDelegate.m */,
 				A0C264E0218BFD6B00B3710B /* ViewController.h */,
@@ -142,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0C264E2218BFD6B00B3710B /* ViewController.m in Sources */,
+				A0C264F5218BFE5200B3710B /* KLPickerVC.m in Sources */,
 				A0C264ED218BFD6D00B3710B /* main.m in Sources */,
 				A0C264DF218BFD6B00B3710B /* AppDelegate.m in Sources */,
 			);
